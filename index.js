@@ -9,16 +9,17 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 //app.use(express.static('public'));
 
+var status = null
+
 // list of connected gateways
 app.get('/', (req, res) => {
-  res.send({})
+  res.send({status: status})
 });
-
 
 // deployment hook
 app.post('/deploy', (req, res) => {
-  console.log("🎃", req.body)
-
+  status = req.body.data.event;
+  console.log("🎃", status);
   res.status(201).end();
   //res.send({})
 });
