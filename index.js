@@ -20,6 +20,15 @@ app.get('/', (req, res) => {
   res.send(status)
 });
 
+app.get('/nullify', (req, res) => {
+  status = {
+    state: null,
+    action: null,
+    event: null
+  }
+  res.send(status)
+});
+
 // deployment hook
 app.post('/deploy', (req, res) => {
   status = {
@@ -31,6 +40,14 @@ app.post('/deploy', (req, res) => {
   res.status(201).end();
   //res.send({})
 });
+
+/*
+let nullifyStatus = () => {
+
+}
+
+const timer = setInterval(nullifyStatus, 1000)
+*/
 
 
 app.listen(port);
