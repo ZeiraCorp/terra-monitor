@@ -9,34 +9,22 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 //app.use(express.static('public'));
 
-var status = {
-  state: null,
-  action: null,
-  event: null
-};
+let statuses = [];
 
 // list of connected gateways
 app.get('/', (req, res) => {
-  res.send(status)
+  res.send(statuses)
 });
 
 app.get('/nullify', (req, res) => {
-  status = {
-    state: null,
-    action: null,
-    event: null
-  }
-  res.send(status)
+  statuses.length = 0
+  res.send(statuses)
 });
 
 // deployment hook
 app.post('/deploy', (req, res) => {
-  status = {
-    state: req.body.data.state,
-    action: req.body.data.action,
-    event: req.body.event
-  };
-  console.log("🎃", status);
+  statuses.push(req.body);
+  console.log("🎃", statuses);
   res.status(201).end();
   //res.send({})
 });
